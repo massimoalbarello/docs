@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "Fabric Docs",
   "logo": {
     "dark": "/logo/icon-light-green.svg",
     "light": "/logo/icon-dark-green.svg"
