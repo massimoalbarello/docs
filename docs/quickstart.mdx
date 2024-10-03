@@ -3,7 +3,7 @@ title: "Quickstart"
 description: "Build experiences tailored to each on of your users"
 ---
 
-In this Quickstart you will create your own Digital Self by connecting your Google activity. You will then be able to ask arbitrary questions to your Digital Self. I promise that you will be surprised by how accurate it is.
+In this Quickstart you will create your own [Digital Self](/docs/core-concepts#digital-self) by connecting your Google activity. You will then be able to ask arbitrary questions to your [Digital Self](/docs/core-concepts#digital-self). I promise that you will be surprised by how accurate it is.
 
 This is how hyperpersonalization feels like.
 
@@ -19,18 +19,11 @@ Make sure to copy the API key as it will not be shown again. You can always crea
 
 ## Onboard your first user
 
-You are now ready to onboard your first user (yourself). Ready to create your Digital Self?
+You are now ready to onboard your first user (yourself). Ready to create your [Digital Self](/docs/core-concepts#digital-self)?
 
-First, generate a user token for your first user by calling the Generate Token API:
+First, generate a user token for your first user by calling the <a href="/api-reference/link/generate-token" target="_blank" rel="noopener noreferrer">Generate Token API</a>.
 
-```shell
-curl -X POST https://auth.onfabric.io/api/v1/link/ \
-     -H "api-key: <test-api-key>" \
-     -H "Content-Type: application/json" \
-     -d '{ "uid": "test-uid" }'
-```
-
-Make sure to replace `<test-api-key>` with the API key you obtained in the previous step. Also modify `test-uid` to a unique identifier of the user you are about to onboard.
+Make sure to set `api-key` as the API key you obtained in the previous step and `uid` with a unique identifier of the user you are about to onboard.
 
 The API returns a `token` in the response body. This is the unique token that identifies the onboarded user.
 
@@ -45,22 +38,17 @@ In just a few clicks you can grant Fabric access to your Google activity. Make s
 
 ![Share Google Activity](../images/share_google_activity.png "Share Google Activity")
 
-That's it! Fabric is now creating the Digital Self of the user you just onboarded.
+That's it! Fabric is now creating the [Digital Self](/docs/core-concepts#digital-self) of the user you just onboarded.
 
 After a few minutes you should see a user named `test-uid` (unless you provided a different UID) in the Users section of your [developer dashboard](https://www.onfabric.io/customer/dashboard/users):
 
 ![Onboarded user](../images/onboarded_user.png "Onboarded user")
 
-You can finally ask any question to the Digital Self of the user you just onboarded via the Ask User API:
+## Ask your user
 
-```shell
-curl -G https://auth.onfabric.io/api/v1/user/ask \
-     -H "api-key: <test-api-key>" \
-     --data-urlencode "uid=test-uid" \
-     --data-urlencode "q=<your-question>"
-```
+You can finally ask any question to the [Digital Self](/docs/core-concepts#digital-self) of the user you just onboarded via the <a href="/api-reference/user/ask-user" target="_blank" rel="noopener noreferrer">Ask User API</a>.
 
-Once again, make sure to replace `<test-api-key>` with your API key and `<your-question>` with a question you want to ask to the user's Digital Self. Feel free to be creative in your question, but remember that Fabric can only answer questions based on the Google activity provided by the user.
+Once again, make sure to set `api-key` to your API key, `uid` to the unique identifier of the user and `q` to a question you want to ask to the user's [Digital Self](/docs/core-concepts#digital-self). Feel free to be creative in your question, but remember that Fabric can only answer questions based on the Google activity provided by the user.
 
 For more insightful answers and even more personalized experience, the user can also grant Fabric access to their activity on Instagram, Facebook, TikTok, and much more.
 

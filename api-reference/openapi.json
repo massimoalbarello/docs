@@ -1,0 +1,645 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+      "title": "Fabric API",
+      "version": "1.1.4"
+    },
+    "servers": [
+        {
+            "url": "https://pjeat4wcz6.eu-central-1.awsapprunner.com",
+            "description": "Production server"
+        }
+    ],
+    "paths": {
+      "/api/v1/link/": {
+        "post": {
+          "tags": [
+            "Link"
+          ],
+          "summary": "Generate Token",
+          "operationId": "generate_token_api_v1_link__post",
+          "parameters": [
+            {
+              "name": "api-key",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "The api key generated from the Fabric customer portal",
+                "title": "Api-Key"
+              },
+              "description": "The api key generated from the Fabric customer portal"
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LinkUserCreate"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/LinkUserResponse"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/catalog/{catalog_key}": {
+        "post": {
+          "tags": [
+            "Catalog"
+          ],
+          "summary": "Upload Catalog",
+          "operationId": "upload_catalog_api_v1_catalog__catalog_key__post",
+          "parameters": [
+            {
+              "name": "catalog_key",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "A unique key provided by you to identify this catalog",
+                "title": "Catalog Key"
+              },
+              "description": "A unique key provided by you to identify this catalog"
+            },
+            {
+              "name": "api-key",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "The api key generated from the Fabric customer portal",
+                "title": "Api-Key"
+              },
+              "description": "The api key generated from the Fabric customer portal"
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "$ref": "#/components/schemas/Body_upload_catalog_api_v1_catalog__catalog_key__post"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/catalog/": {
+        "get": {
+          "tags": [
+            "Catalog"
+          ],
+          "summary": "Get Catalog",
+          "operationId": "get_catalog_api_v1_catalog__get",
+          "parameters": [
+            {
+              "name": "api-key",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "The api key generated from the Fabric customer portal",
+                "title": "Api-Key"
+              },
+              "description": "The api key generated from the Fabric customer portal"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/user/query": {
+        "get": {
+          "tags": [
+            "User"
+          ],
+          "summary": "Query User",
+          "operationId": "query_user_api_v1_user_query_get",
+          "parameters": [
+            {
+              "name": "q",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "Query to search for",
+                "title": "Q"
+              },
+              "description": "Query to search for"
+            },
+            {
+              "name": "top_k",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "title": "Top K"
+              }
+            },
+            {
+              "name": "uid",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "title": "Uid"
+              }
+            },
+            {
+              "name": "api-key",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "The api key generated from the Fabric customer portal",
+                "title": "Api-Key"
+              },
+              "description": "The api key generated from the Fabric customer portal"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/QueryUserResponse"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/user/ask": {
+        "get": {
+          "tags": [
+            "User"
+          ],
+          "summary": "Ask User",
+          "operationId": "ask_user_api_v1_user_ask_get",
+          "parameters": [
+            {
+              "name": "q",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "Query to search for",
+                "title": "Q"
+              },
+              "description": "Query to search for"
+            },
+            {
+              "name": "uid",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "title": "Uid"
+              }
+            },
+            {
+              "name": "api-key",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "The api key generated from the Fabric customer portal",
+                "title": "Api-Key"
+              },
+              "description": "The api key generated from the Fabric customer portal"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AskUserResponse"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/v1/user/catalog-intersection": {
+        "get": {
+          "tags": [
+            "User"
+          ],
+          "summary": "Intersect User With Catalog",
+          "operationId": "intersect_user_with_catalog_api_v1_user_catalog_intersection_get",
+          "parameters": [
+            {
+              "name": "context",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "Context about the catalog to narrow user space",
+                "title": "Context"
+              },
+              "description": "Context about the catalog to narrow user space"
+            },
+            {
+              "name": "catalog_key",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "Catalog with with to intersect the user",
+                "title": "Catalog Key"
+              },
+              "description": "Catalog with with to intersect the user"
+            },
+            {
+              "name": "top_k",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "integer",
+                "default": 10,
+                "title": "Top K"
+              }
+            },
+            {
+              "name": "min_score",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "type": "number",
+                "title": "Min Score"
+              }
+            },
+            {
+              "name": "uid",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "title": "Uid"
+              }
+            },
+            {
+              "name": "api-key",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "description": "The api key generated from the Fabric customer portal",
+                "title": "Api-Key"
+              },
+              "description": "The api key generated from the Fabric customer portal"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "AskUserResponse": {
+          "properties": {
+            "expanded_q": {
+              "type": "string",
+              "title": "Expanded Q"
+            },
+            "answer": {
+              "type": "string",
+              "title": "Answer"
+            },
+            "evidence": {
+              "items": {
+                "type": "object"
+              },
+              "type": "array",
+              "title": "Evidence"
+            }
+          },
+          "type": "object",
+          "required": [
+            "expanded_q",
+            "answer",
+            "evidence"
+          ],
+          "title": "AskUserResponse"
+        },
+        "Body_upload_catalog_api_v1_catalog__catalog_key__post": {
+          "properties": {
+            "catalog_schema": {
+              "$ref": "#/components/schemas/CatalogSchema",
+              "description": "Your catalog schema"
+            },
+            "file": {
+              "type": "string",
+              "format": "binary",
+              "title": "File",
+              "description": "JSON file containing list of catalog items"
+            }
+          },
+          "type": "object",
+          "required": [
+            "catalog_schema",
+            "file"
+          ],
+          "title": "Body_upload_catalog_api_v1_catalog__catalog_key__post"
+        },
+        "CatalogFeatureColumn": {
+          "properties": {
+            "type": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "string"
+                  ],
+                  "const": "string"
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "image_source"
+                  ],
+                  "const": "image_source"
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "image_url"
+                  ],
+                  "const": "image_url"
+                }
+              ],
+              "title": "Type"
+            },
+            "name": {
+              "type": "string",
+              "title": "Name"
+            }
+          },
+          "type": "object",
+          "required": [
+            "type",
+            "name"
+          ],
+          "title": "CatalogFeatureColumn"
+        },
+        "CatalogIdColumn": {
+          "properties": {
+            "type": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "string"
+                  ],
+                  "const": "string"
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "integer"
+                  ],
+                  "const": "integer"
+                }
+              ],
+              "title": "Type"
+            },
+            "name": {
+              "type": "string",
+              "title": "Name"
+            }
+          },
+          "type": "object",
+          "required": [
+            "type",
+            "name"
+          ],
+          "title": "CatalogIdColumn"
+        },
+        "CatalogSchema": {
+          "properties": {
+            "id_column": {
+              "$ref": "#/components/schemas/CatalogIdColumn"
+            },
+            "feature_columns": {
+              "items": {
+                "$ref": "#/components/schemas/CatalogFeatureColumn"
+              },
+              "type": "array",
+              "title": "Feature Columns"
+            }
+          },
+          "type": "object",
+          "required": [
+            "id_column",
+            "feature_columns"
+          ],
+          "title": "CatalogSchema"
+        },
+        "HTTPValidationError": {
+          "properties": {
+            "detail": {
+              "items": {
+                "$ref": "#/components/schemas/ValidationError"
+              },
+              "type": "array",
+              "title": "Detail"
+            }
+          },
+          "type": "object",
+          "title": "HTTPValidationError"
+        },
+        "LinkUserCreate": {
+          "properties": {
+            "uid": {
+              "type": "string",
+              "title": "Uid"
+            }
+          },
+          "type": "object",
+          "required": [
+            "uid"
+          ],
+          "title": "LinkUserCreate"
+        },
+        "LinkUserResponse": {
+          "properties": {
+            "token": {
+              "type": "string",
+              "title": "Token"
+            }
+          },
+          "type": "object",
+          "required": [
+            "token"
+          ],
+          "title": "LinkUserResponse"
+        },
+        "QueryUserResponse": {
+          "properties": {
+            "expanded_q": {
+              "type": "string",
+              "title": "Expanded Q"
+            },
+            "results": {
+              "items": {
+                "type": "object"
+              },
+              "type": "array",
+              "title": "Results"
+            }
+          },
+          "type": "object",
+          "required": [
+            "expanded_q",
+            "results"
+          ],
+          "title": "QueryUserResponse"
+        },
+        "ValidationError": {
+          "properties": {
+            "loc": {
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ]
+              },
+              "type": "array",
+              "title": "Location"
+            },
+            "msg": {
+              "type": "string",
+              "title": "Message"
+            },
+            "type": {
+              "type": "string",
+              "title": "Error Type"
+            }
+          },
+          "type": "object",
+          "required": [
+            "loc",
+            "msg",
+            "type"
+          ],
+          "title": "ValidationError"
+        }
+      }
+    }
+  }

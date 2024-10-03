@@ -5,7 +5,7 @@
     "dark": "/logo/icon-light-green.svg",
     "light": "/logo/icon-dark-green.svg"
   },
-  "favicon": "/favicon.png",
+  "favicon": "/logo/icon-light-green.svg",
   "colors": {
     "primary": "#1F473F",
     "light": "#ABFA6E",
@@ -29,20 +29,20 @@
     {
       "name": "API Reference",
       "url": "api-reference",
-      "openapi": "https://pjeat4wcz6.eu-central-1.awsapprunner.com/openapi.json"
+      "openapi": "/api-reference/openapi.json"
     }
   ],
   "navigation": [
     {
-      "group": "Get Started",
+      "group": "Overview",
       "pages": [
         "docs/welcome",
-        "docs/quickstart"
+        "docs/quickstart",
+        "docs/core-concepts"
       ]
     }
   ],
   "footerSocials": {
-    "x": "https://x.com/onfabric",
     "github": "https://github.com/onfabric",
     "linkedin": "https://www.linkedin.com/company/onfabric"
   }
