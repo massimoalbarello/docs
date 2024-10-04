@@ -40,6 +40,12 @@
         "docs/quickstart",
         "docs/core-concepts"
       ]
+    },
+    {
+      "group": "Tutorials",
+      "pages": [
+        "docs/catalog-intersection"
+      ]
     }
   ],
   "footerSocials": {
