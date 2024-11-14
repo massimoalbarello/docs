@@ -1,29 +1,29 @@
 ---
 title: "Catalog Intersection"
-description: "How can you help your users finding items that are most relevant to them in a world where anything is one click away? The Catalog Intersection Endpoint is what you need"
+description: "How do you recommend the best products for each individual user out of a catalog with millions of items? The Catalog Intersection Endpoint is designed to integrate with your recommender to input product catalog data most relevant to each individual user so your recommendation system truly understands each individual user"
 ---
 
 <Warning>
   We are currently developing an improved version of the Catalog Intersection
-  Endpoit. Expect breaking changes, a much better developer experience and
-  ranking of items.
+  Endpoint. Expect changes, an awesome developer experience and
+  new ranking of items.
 </Warning>
 
-In the [quickstart](/docs/quickstart) you learned how to create a user's [Digital Self](/docs/core-concepts#digital-self) and ask any question to it. In this tutorial, you will see how the [Digital Self](/docs/core-concepts#digital-self) is the core building block for creating hyperpersonalized user experiences.
+In the [quickstart](/docs/quickstart) you learned how to create a user's [Digital Self](/docs/core-concepts#digital-self) and query it to understand the user's preferences. In this tutorial, you will see how the [Digital Self](/docs/core-concepts#digital-self) is the core building block for creating hyper-personalized user experiences.
 
 <Note>
-  This tutorial assumes that you have already gone through the <a href="/docs/quickstart" target="_blank" rel="noopener noreferrer">quickstart</a>. In case you haven't yet, don't worry. I'll patiently wait here until you are done.
+  This tutorial assumes that you have already gone through the <a href="/docs/quickstart" target="_blank" rel="noopener noreferrer">quickstart</a>.
 </Note>
 
-## Upload a catalog
+## Upload a new catalog
 
-The developer dashboard includes a simple [UI to upload a catalog](https://www.onfabric.io/customer/dashboard/catalogs). The catalog can be a collection of products, events and even people. The Catalog Intersection Endpoint enables you to find the subset of items in the catalog that is most relevant to each user, based on their [Digital Self](/docs/core-concepts#digital-self).
+The developer dashboard includes a simple [UI to upload a catalog](https://www.onfabric.io/customer/dashboard/catalogs). The catalog can be a collection of products, events, or even people. The Catalog Intersection Endpoint enables you to find the subset of items in the catalog that are most relevant to each user, based on their [Digital Self](/docs/core-concepts#digital-self).
 
 For your convenience, we provide a test catalog that you can upload via the customer dashboard. Create a json file and paste the [test catalog](https://gist.githubusercontent.com/massimoalbarello/1971e0a6fcc15307e961e55e2c82c4b4/raw/812d5d8b44f84b35be89086a63866a860d054fa6/fashion_catalog.json) into it. You can then upload the catalog by clicking on "Upload Catalog":
 ![Upload Catalog](/images/catalog-intersection/upload_catalog.png "Upload Catalog")
 
 Assign a catalog key to the catalog such as `catalogExample` and make sure to upload the json file containing the [test catalog](https://gist.githubusercontent.com/massimoalbarello/1971e0a6fcc15307e961e55e2c82c4b4/raw/812d5d8b44f84b35be89086a63866a860d054fa6/fashion_catalog.json).
-Finally you need to specify which features of the catalog you want to consider. For the test catalog we will use the following:
+Finally, specify which features of the catalog you want to consider. For the test catalog, we will use the following:
 
 ```json
 {
@@ -46,36 +46,36 @@ Finally you need to specify which features of the catalog you want to consider. 
 
 Copy and paste the schema above into the `Catalog JSON Schema` section of the popup on the developer dashboard. The `id_column` and `feature_columns` fields should not be modified.
 The object related to `id_column` specifies which field in the [test catalog](https://gist.githubusercontent.com/massimoalbarello/1971e0a6fcc15307e961e55e2c82c4b4/raw/812d5d8b44f84b35be89086a63866a860d054fa6/fashion_catalog.json) should be considered as an identifier of each item (`id` in this case).
-The object related to `feature_columns` specifies which fields of the [test catalog](https://gist.githubusercontent.com/massimoalbarello/1971e0a6fcc15307e961e55e2c82c4b4/raw/812d5d8b44f84b35be89086a63866a860d054fa6/fashion_catalog.json) should be considered as features used to rank the items according to the user's [Digital Self](/docs/core-concepts#digital-self) (`name` and `description` in this case).
+The objects related to `feature_columns` specifies which fields of the [test catalog](https://gist.githubusercontent.com/massimoalbarello/1971e0a6fcc15307e961e55e2c82c4b4/raw/812d5d8b44f84b35be89086a63866a860d054fa6/fashion_catalog.json) should be considered as features used to rank the items according to the user's [Digital Self](/docs/core-concepts#digital-self) (`name` and `description` in this case).
 
 <Note>
-  In case you want to upload your own catalog, you do not necessarily need to
-  include all the fields that are in it as features. Only what you think will be
+  When uploading your own catalog, you do not need to
+  include all its fields as features. Only those that will be
   relevant to rank the items according to the user's preferences.
 </Note>
 
 <Warning>
   So far we only support features of type string but in the near feature we will
-  support images, videos and even generic URLs.
+  support images, videos, and generic URLs.
 </Warning>
 
-Once you are ready, click `Upload` and the catalog will start being processed.
+Once you are ready, click `Upload` and the catalog will start getting processed.
 
 You can also upload the catalog programmatically via the [Upload Catalog API](/api-reference/catalog/upload-catalog). You will need to provide an API key such as the one you created in the [quickstart](/docs/quickstart).
 
 ## Rank items
 
-Once the catalog has been processed, you can rank items according to the preferences of each of your users. To do so, go to the [users section of the developer dashboard](https://www.onfabric.io/customer/dashboard/users) where you can see the user you onboarded during the [quickstart](/docs/quickstart). Click on `Go to user` to select the user you want to rank the items for:
+Once the catalog has been processed, you can rank items according to the preferences of each of your users. To do so, go to the [users section of the developer dashboard](https://www.onfabric.io/customer/dashboard/users) where you can see the user you onboarded during the [quickstart](/docs/quickstart). Click on `Go to user` to select the user you want item rankings for:
 ![Go to User](/images/catalog-intersection/go_to_user.png "Go to User")
 
-On the user page, click on the `Catalog Intersection` tab, then select the catalog you just uploaded and provide some context for the kind of items you would like to rank from the catalog (for example `shoes`). Click on `Intersect` to display the items that best match the user preferences.
+On the user page, click on the `Catalog Intersection` tab, then select the catalog you just uploaded, and provide some context on the kind of items you would like to rank from the catalog (for example `shoes`). Click on `Intersect` to display the items that best match the user preferences.
 ![Rank Items](/images/catalog-intersection/rank_items.png "Rank Items")
 
 The image above shows the item that has been ranked the highest among all the ones in the catalog based on the user's unique preferences. We also provide an explanation of why the item has been chosen.
 
 <Note>
-  The catalog that we upload is a simple catalog with few itmes and even fewer
-  information about each of them. Therefore the ranking of might seem not
+  The catalog that we uploaded is a simple catalog with few items and limited
+  information. Therefore, the ranking might seem not
   extremely relevant to the user. Things improve dramatically with more data!
 </Note>
 
