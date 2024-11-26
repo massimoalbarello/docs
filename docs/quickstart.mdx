@@ -9,47 +9,48 @@ This is what hyper-personalization feels like.
 
 ## Create a developer profile
 
-First of all, create a [developer profile](https://www.onfabric.io/customer/dashboard). This is where you will be able to see all the users that log in via Fabric. You can get an overview from the main page:
+First of all, create a [developer profile](https://developer.onfabric.io). This is where you will be able to see all the users that log in via Fabric. You can get an overview from the main page:
 ![Developer dashboard overview](/images/quickstart/dev_dashboard.png "Developer dashboard overview")
 
-Create an API Key by clicking on Keys -> Create API Key:
-![Create API key](/images/quickstart/create_api_key.png "Create API key")
+## Create a consent flow
 
-Make sure to copy the API key as it will not be shown again. You can always create a second one.
+Create a consent flow for your use case by clicking on `Consents` -> `Create Consent`:
+![Create consent flow](/images/quickstart/consent_flow.png "Create consent flow")
+
+Make sure to specify the name of the consent flow (`test` in this case) and the callback URL you want to be redirected to once you authorize Fabric access to your Google activity (`https://developer.onfabric.io` for this test).
 
 ## Onboard your first user
 
 You are now ready to onboard your first user (yourself). Ready to create your [Digital Self](/docs/core-concepts#digital-self)?
 
-First, generate a user token for your first user by calling the <a href="/api-reference/link/generate-token" target="_blank" rel="noopener noreferrer">Generate Token API</a>.
+First, go back to the [main dashboard](https://developer.onfabric.io), click on `Create Link User` and provide a unique identifier (`test-user` in this case). Once you are done, you will see that a new user has been created:
+![Link User](/images/quickstart/link_user.png "Link User")
 
-Make sure to set `api-key` as the API key you obtained in the previous step and `uid` with a unique identifier of the user you are about to onboard.
+Click on `>` to go to the user's dashboard:
+![User Dashboard](/images/quickstart/user_dashboard.png "User Dashboard")
 
-The API returns a `token` in the response body. This is the unique token that identifies the onboarded user.
+Then, click again on `>` under `Consent` to select which consent flow to show to `test-user`.
+![User Consent](/images/quickstart/user_consent.png "User Consent")
 
-You are now ready to connect your Google activity via Fabric! Go to `https://www.onfabric.io/consent/fabric/google?token=` and append the token you just obtained.
-
-You will be shown a consent flow to grant access to a hypothetical fashion retailer named "LOGO":
-![Fabric consent flow](/images/quickstart/fabric_consent_flow.png "Fabric consent flow")
+At this point, you are shown the consent flow you previously created
+![User Flow](/images/quickstart/user_flow.png "User Flow")
 
 This consent flow can be completely personalized to your use case.
 
-In just a few clicks, you can grant Fabric access to your Google activity. Make sure to share both the "Search" and "Shopping" scopes. The more Fabric learns from you, the better your online experiences. 
-
+In just a few clicks, you can grant Fabric access to your Google activity. Make sure to share both the "Search" and "Shopping" scopes. The more Fabric learns from you, the better your online experiences.
 ![Share Google Activity](/images/quickstart/share_google_activity.png "Share Google Activity")
 
-That's it! Fabric is now creating the [Digital Self](/docs/core-concepts#digital-self) of the user you just onboarded.
+That's it! Fabric is now creating your [Digital Self](/docs/core-concepts#digital-self).
 
-After a few minutes you should see a user named `test-uid` (unless you provided a different UID) in the Users section of your [developer dashboard](https://www.onfabric.io/customer/dashboard/users):
+You can now go back to the dashboard of `test-user` and see a summary of the user's Google activity:
 
-![Onboarded user](/images/quickstart/onboarded_user.png "Onboarded user")
+![User Activity](/images/quickstart/user_activity.png "User Activity")
 
 ## Ask your user
 
-You can now ask specific question to the [Digital Self](/docs/core-concepts#digital-self) of the user you just onboarded via the <a href="/api-reference/user/ask-user" target="_blank" rel="noopener noreferrer">Ask User API</a>.
-
-Make sure to set `api-key` to your API key, `uid` to the unique identifier of the user and `q` to a question you want to ask the user's [Digital Self](/docs/core-concepts#digital-self). Be creative in your questions, but remember that Fabric can only answer questions based on the Google activity provided by the user.
+You can now ask specific question to the [Digital Self](/docs/core-concepts#digital-self) of the user you just onboarded. For example:
+![Ask User](/images/quickstart/ask_user.png "Ask User")
 
 For more insightful answers and even more personalized experiences, the user can also grant Fabric access to their activity on Instagram, Facebook, TikTok, Pinterest, and much more.
 
-The answer to the question is found in the `answer` of the response body.
+Imagine being able to understand what each of your users want. With Fabric, the most accurate user understanding is one click away!
