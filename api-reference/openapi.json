@@ -6,7 +6,7 @@
     },
     "servers": [
         {
-            "url": "api.onfabric.io",
+            "url": "https://api.onfabric.io",
             "description": "Production server"
         }
     ],
