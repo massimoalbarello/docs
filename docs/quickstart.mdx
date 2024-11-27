@@ -3,25 +3,28 @@ title: "Quickstart"
 description: "Build hyper-personalized experiences for your users"
 ---
 
-In this Quickstart, you will create your own [Digital Self](/docs/core-concepts#digital-self) by connecting your Google activity. You can then ask specific questions to your [Digital Self](/docs/core-concepts#digital-self).
-
-This is what hyper-personalization feels like.
+In this Quickstart, you will create your first test user's [Digital Self](/docs/core-concepts#digital-self) by connecting their Google data. You can then query this user's [Digital Self](/docs/core-concepts#digital-self).
 
 ## Create a developer profile
 
-First of all, create a [developer profile](https://developer.onfabric.io). This is where you will be able to see all the users that log in via Fabric. You can get an overview from the main page:
+First of all, create a [developer profile](https://developer.onfabric.io). This is where you can see all users that log in via Fabric. You can get an overview from the main page:
 ![Developer dashboard overview](/images/quickstart/dev_dashboard.png "Developer dashboard overview")
 
-## Create a consent flow
+## Create a consent flow to get data access
 
 Create a consent flow for your use case by clicking on `Consents` -> `Create Consent`:
 ![Create consent flow](/images/quickstart/consent_flow.png "Create consent flow")
 
-Make sure to specify the name of the consent flow (`test` in this case) and the callback URL you want to be redirected to once you authorize Fabric access to your Google activity (`https://developer.onfabric.io` for this test).
+Make sure to specify the name of the consent flow (`test` in this case) and the callback URL you want your users to be redirected to once they have completed the consent flow (`https://developer.onfabric.io` for this test).
+
+This consent flow can be completely personalized to your use case. 
+
+You can use your logo, update the copy, and specify your own callback URL to redirect the user after they have consented.
+![Personalize Consent](/images/quickstart/consent_personalization.png "Personalize Consent")
 
 ## Onboard your first user
 
-You are now ready to onboard your first user (yourself). Ready to create your [Digital Self](/docs/core-concepts#digital-self)?
+You are now ready to onboard your first user. 
 
 First, go back to the [main dashboard](https://developer.onfabric.io), click on `Create Link User` and provide a unique identifier (`test-user` in this case). Once you are done, you will see that a new user has been created:
 ![Link User](/images/quickstart/link_user.png "Link User")
@@ -35,21 +38,18 @@ Then, click again on `>` under `Consent` to select which consent flow to show to
 At this point, you are shown the consent flow you previously created
 ![User Flow](/images/quickstart/user_flow.png "User Flow")
 
-This consent flow can be completely personalized to your use case. You can use your logo, update the copy, and specify your own callback URL to redirect the user after they have consented.
-![Personalize Consent](/images/quickstart/consent_personalization.png "Personalize Consent")
-
-In just a few clicks, you can grant Fabric access to your Google activity. Make sure to share both the "Search" and "Shopping" scopes. The more Fabric learns from you, the more personalized your online experiences.
+It takes just a few clicks to grant Fabric access to Google activity. Fabric currently supports Google "Search" and "Shopping" scopes and will make "Youtube" and "Maps" available in the near future. More scopes = more personalized online experiences.
 ![Share Google Activity](/images/quickstart/share_google_activity.png "Share Google Activity")
 
-That's it! Fabric is now creating your [Digital Self](/docs/core-concepts#digital-self).
+That's it! Fabric is now creating the [Digital Self](/docs/core-concepts#digital-self) of your `test-user`.
 
-You can now go back to the dashboard of `test-user` and see a summary of the user's Google activity:
+You can now go back to the dashboard and see a summary of the `test-user` Google activity:
 
 ![User Activity](/images/quickstart/user_activity.png "User Activity")
 
-## Ask your user
+## Ask the user
 
-You can now ask specific question to the [Digital Self](/docs/core-concepts#digital-self) of the user you just onboarded. For example:
+You can now ask specific question to the [Digital Self](/docs/core-concepts#digital-self) of the `test-user`. For example:
 ![Ask User](/images/quickstart/ask_user.png "Ask User")
 
 For more insightful answers and even more personalized experiences, the user can also grant Fabric access to their activity on Instagram, Facebook, TikTok, Pinterest, and much more.
