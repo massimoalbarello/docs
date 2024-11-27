@@ -18,12 +18,12 @@
   "topbarLinks": [
     {
       "name": "Book a demo",
-      "url": "https://cal.com/massimo@onfabric.io"
+      "url": "https://cal.com/massimo-onfabric.io/build-on-fabric"
     }
   ],
   "topbarCtaButton": {
     "name": "Dashboard",
-    "url": "https://onfabric.io/customer/dashboard"
+    "url": "https://developer.onfabric.io"
   },
   "tabs": [
     {
