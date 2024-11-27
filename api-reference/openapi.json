@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://api.onfabric.io"
+      "url": "https://api.onfabric.io/api/v1"
     }
   ],
   "paths": {
