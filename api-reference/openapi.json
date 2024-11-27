@@ -6,7 +6,7 @@
     },
     "servers": [
         {
-            "url": "https://pjeat4wcz6.eu-central-1.awsapprunner.com",
+            "url": "api.onfabric.io",
             "description": "Production server"
         }
     ],
