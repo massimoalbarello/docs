@@ -1,404 +1,195 @@
 {
-    "openapi": "3.1.0",
-    "info": {
-      "title": "Fabric API",
-      "version": "1.1.4"
-    },
-    "servers": [
-        {
-            "url": "https://api.onfabric.io",
-            "description": "Production server"
-        }
-    ],
-    "paths": {
-      "/api/v1/link/": {
-        "post": {
-          "tags": [
-            "Link"
-          ],
-          "summary": "Generate Token",
-          "operationId": "generate_token_api_v1_link__post",
-          "parameters": [
-            {
-              "name": "api-key",
-              "in": "header",
-              "required": true,
-              "schema": {
-                "type": "string",
-                "description": "The api key generated from the Fabric customer portal",
-                "title": "Api-Key"
-              },
-              "description": "The api key generated from the Fabric customer portal"
+  "openapi": "3.1.0",
+  "info": {
+    "title": "OnFabric",
+    "description": "Welcome to OnFabric's API documentation! Here you will able to discover all of the ways you can interact with the OnFabric API.",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.onfabric.io"
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "summary": "Health Check",
+        "operationId": "health_check_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
             }
-          ],
-          "requestBody": {
+          }
+        }
+      }
+    },
+    "/health/db": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "summary": "Db Health Check",
+        "operationId": "db_health_check_health_db_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health/backend": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "summary": "Backend Health Check",
+        "operationId": "backend_health_check_health_backend_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health/worker": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "summary": "Worker Health Check",
+        "operationId": "worker_health_check_health_worker_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health/all": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "summary": "All Health Checks",
+        "operationId": "all_health_checks_health_all_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/wh/developer": {
+      "post": {
+        "tags": [
+          "Webhooks"
+        ],
+        "summary": "Create Developer Wh New",
+        "operationId": "create_developer_wh_new_wh_developer_post",
+        "parameters": [
+          {
+            "name": "svix-id",
+            "in": "header",
             "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Svix-Id"
+            }
+          },
+          {
+            "name": "svix-signature",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Svix-Signature"
+            }
+          },
+          {
+            "name": "svix-timestamp",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Svix-Timestamp"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/UserCreatedWebhook"
+                  },
+                  {
+                    "$ref": "#/components/schemas/UserDeletedWebhook"
+                  },
+                  {
+                    "$ref": "#/components/schemas/UserUpdatedWebhook"
+                  },
+                  {
+                    "$ref": "#/components/schemas/TeamCreatedWebhook"
+                  },
+                  {
+                    "$ref": "#/components/schemas/TeamDeletedWebhook"
+                  },
+                  {
+                    "$ref": "#/components/schemas/TeamMembershipCreatedWebhook"
+                  },
+                  {
+                    "$ref": "#/components/schemas/TeamMembershipDeletedWebhook"
+                  }
+                ],
+                "title": "Body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LinkUserCreate"
-                }
-              }
-            }
-          },
-          "responses": {
-            "200": {
-              "description": "Successful Response",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/LinkUserResponse"
-                  }
-                }
-              }
-            },
-            "422": {
-              "description": "Validation Error",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/HTTPValidationError"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/api/v1/catalog/{catalog_key}": {
-        "post": {
-          "tags": [
-            "Catalog"
-          ],
-          "summary": "Upload Catalog",
-          "operationId": "upload_catalog_api_v1_catalog__catalog_key__post",
-          "parameters": [
-            {
-              "name": "catalog_key",
-              "in": "path",
-              "required": true,
-              "schema": {
-                "type": "string",
-                "description": "A unique key provided by you to identify this catalog",
-                "title": "Catalog Key"
-              },
-              "description": "A unique key provided by you to identify this catalog"
-            },
-            {
-              "name": "api-key",
-              "in": "header",
-              "required": true,
-              "schema": {
-                "type": "string",
-                "description": "The api key generated from the Fabric customer portal",
-                "title": "Api-Key"
-              },
-              "description": "The api key generated from the Fabric customer portal"
-            }
-          ],
-          "requestBody": {
-            "required": true,
-            "content": {
-              "multipart/form-data": {
-                "schema": {
-                  "$ref": "#/components/schemas/Body_upload_catalog_api_v1_catalog__catalog_key__post"
-                }
-              }
-            }
-          },
-          "responses": {
-            "200": {
-              "description": "Successful Response",
-              "content": {
-                "application/json": {
-                  "schema": {
-  
-                  }
-                }
-              }
-            },
-            "422": {
-              "description": "Validation Error",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/HTTPValidationError"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/api/v1/catalog/": {
-        "get": {
-          "tags": [
-            "Catalog"
-          ],
-          "summary": "Get Catalog",
-          "operationId": "get_catalog_api_v1_catalog__get",
-          "parameters": [
-            {
-              "name": "api-key",
-              "in": "header",
-              "required": true,
-              "schema": {
-                "type": "string",
-                "description": "The api key generated from the Fabric customer portal",
-                "title": "Api-Key"
-              },
-              "description": "The api key generated from the Fabric customer portal"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Successful Response",
-              "content": {
-                "application/json": {
-                  "schema": {
-  
-                  }
-                }
-              }
-            },
-            "422": {
-              "description": "Validation Error",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/HTTPValidationError"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/api/v1/user/query": {
-        "get": {
-          "tags": [
-            "User"
-          ],
-          "summary": "Query User",
-          "operationId": "query_user_api_v1_user_query_get",
-          "parameters": [
-            {
-              "name": "q",
-              "in": "query",
-              "required": true,
-              "schema": {
-                "type": "string",
-                "description": "Query to search for",
-                "title": "Q"
-              },
-              "description": "Query to search for"
-            },
-            {
-              "name": "top_k",
-              "in": "query",
-              "required": true,
-              "schema": {
-                "type": "integer",
-                "title": "Top K"
-              }
-            },
-            {
-              "name": "uid",
-              "in": "query",
-              "required": true,
-              "schema": {
-                "type": "string",
-                "title": "Uid"
-              }
-            },
-            {
-              "name": "api-key",
-              "in": "header",
-              "required": true,
-              "schema": {
-                "type": "string",
-                "description": "The api key generated from the Fabric customer portal",
-                "title": "Api-Key"
-              },
-              "description": "The api key generated from the Fabric customer portal"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Successful Response",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/QueryUserResponse"
-                  }
-                }
-              }
-            },
-            "422": {
-              "description": "Validation Error",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/HTTPValidationError"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/api/v1/user/ask": {
-        "get": {
-          "tags": [
-            "User"
-          ],
-          "summary": "Ask User",
-          "operationId": "ask_user_api_v1_user_ask_get",
-          "parameters": [
-            {
-              "name": "q",
-              "in": "query",
-              "required": true,
-              "schema": {
-                "type": "string",
-                "description": "Query to search for",
-                "title": "Q"
-              },
-              "description": "Query to search for"
-            },
-            {
-              "name": "uid",
-              "in": "query",
-              "required": true,
-              "schema": {
-                "type": "string",
-                "title": "Uid"
-              }
-            },
-            {
-              "name": "api-key",
-              "in": "header",
-              "required": true,
-              "schema": {
-                "type": "string",
-                "description": "The api key generated from the Fabric customer portal",
-                "title": "Api-Key"
-              },
-              "description": "The api key generated from the Fabric customer portal"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Successful Response",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/AskUserResponse"
-                  }
-                }
-              }
-            },
-            "422": {
-              "description": "Validation Error",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/HTTPValidationError"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "/api/v1/user/catalog-intersection": {
-        "get": {
-          "tags": [
-            "User"
-          ],
-          "summary": "Intersect User With Catalog",
-          "operationId": "intersect_user_with_catalog_api_v1_user_catalog_intersection_get",
-          "parameters": [
-            {
-              "name": "context",
-              "in": "query",
-              "required": true,
-              "schema": {
-                "type": "string",
-                "description": "Context about the catalog to narrow user space",
-                "title": "Context"
-              },
-              "description": "Context about the catalog to narrow user space"
-            },
-            {
-              "name": "catalog_key",
-              "in": "query",
-              "required": true,
-              "schema": {
-                "type": "string",
-                "description": "Catalog with with to intersect the user",
-                "title": "Catalog Key"
-              },
-              "description": "Catalog with with to intersect the user"
-            },
-            {
-              "name": "top_k",
-              "in": "query",
-              "required": false,
-              "schema": {
-                "type": "integer",
-                "default": 10,
-                "title": "Top K"
-              }
-            },
-            {
-              "name": "min_score",
-              "in": "query",
-              "required": false,
-              "schema": {
-                "type": "number",
-                "title": "Min Score"
-              }
-            },
-            {
-              "name": "uid",
-              "in": "query",
-              "required": true,
-              "schema": {
-                "type": "string",
-                "title": "Uid"
-              }
-            },
-            {
-              "name": "api-key",
-              "in": "header",
-              "required": true,
-              "schema": {
-                "type": "string",
-                "description": "The api key generated from the Fabric customer portal",
-                "title": "Api-Key"
-              },
-              "description": "The api key generated from the Fabric customer portal"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Successful Response",
-              "content": {
-                "application/json": {
-                  "schema": {
-  
-                  }
-                }
-              }
-            },
-            "422": {
-              "description": "Validation Error",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/HTTPValidationError"
-                  }
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
@@ -406,240 +197,3429 @@
         }
       }
     },
-    "components": {
-      "schemas": {
-        "AskUserResponse": {
-          "properties": {
-            "expanded_q": {
+    "/catalog": {
+      "post": {
+        "tags": [
+          "Catalog"
+        ],
+        "summary": "Create Catalog",
+        "description": "Create a new catalog from JSON file, Upload to s3",
+        "operationId": "create_catalog_catalog_post",
+        "parameters": [
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
               "type": "string",
-              "title": "Expanded Q"
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
             },
-            "answer": {
-              "type": "string",
-              "title": "Answer"
-            },
-            "evidence": {
-              "items": {
-                "type": "object"
-              },
-              "type": "array",
-              "title": "Evidence"
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_create_catalog_catalog_post"
+              }
             }
-          },
-          "type": "object",
-          "required": [
-            "expanded_q",
-            "answer",
-            "evidence"
-          ],
-          "title": "AskUserResponse"
+          }
         },
-        "Body_upload_catalog_api_v1_catalog__catalog_key__post": {
-          "properties": {
-            "catalog_schema": {
-              "$ref": "#/components/schemas/CatalogSchema",
-              "description": "Your catalog schema"
-            },
-            "file": {
-              "type": "string",
-              "format": "binary",
-              "title": "File",
-              "description": "JSON file containing list of catalog items"
-            }
-          },
-          "type": "object",
-          "required": [
-            "catalog_schema",
-            "file"
-          ],
-          "title": "Body_upload_catalog_api_v1_catalog__catalog_key__post"
-        },
-        "CatalogFeatureColumn": {
-          "properties": {
-            "type": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "enum": [
-                    "string"
-                  ],
-                  "const": "string"
-                },
-                {
-                  "type": "string",
-                  "enum": [
-                    "image_source"
-                  ],
-                  "const": "image_source"
-                },
-                {
-                  "type": "string",
-                  "enum": [
-                    "image_url"
-                  ],
-                  "const": "image_url"
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CatalogRead"
                 }
-              ],
-              "title": "Type"
-            },
-            "name": {
-              "type": "string",
-              "title": "Name"
+              }
             }
           },
-          "type": "object",
-          "required": [
-            "type",
-            "name"
-          ],
-          "title": "CatalogFeatureColumn"
-        },
-        "CatalogIdColumn": {
-          "properties": {
-            "type": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "enum": [
-                    "string"
-                  ],
-                  "const": "string"
-                },
-                {
-                  "type": "string",
-                  "enum": [
-                    "integer"
-                  ],
-                  "const": "integer"
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
-              ],
-              "title": "Type"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Catalog"
+        ],
+        "summary": "List Catalogs",
+        "description": "List all catalogs for a team",
+        "operationId": "list_catalogs_catalog_get",
+        "parameters": [
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
             },
-            "name": {
-              "type": "string",
-              "title": "Name"
-            }
-          },
-          "type": "object",
-          "required": [
-            "type",
-            "name"
-          ],
-          "title": "CatalogIdColumn"
-        },
-        "CatalogSchema": {
-          "properties": {
-            "id_column": {
-              "$ref": "#/components/schemas/CatalogIdColumn"
-            },
-            "feature_columns": {
-              "items": {
-                "$ref": "#/components/schemas/CatalogFeatureColumn"
-              },
-              "type": "array",
-              "title": "Feature Columns"
-            }
-          },
-          "type": "object",
-          "required": [
-            "id_column",
-            "feature_columns"
-          ],
-          "title": "CatalogSchema"
-        },
-        "HTTPValidationError": {
-          "properties": {
-            "detail": {
-              "items": {
-                "$ref": "#/components/schemas/ValidationError"
-              },
-              "type": "array",
-              "title": "Detail"
-            }
-          },
-          "type": "object",
-          "title": "HTTPValidationError"
-        },
-        "LinkUserCreate": {
-          "properties": {
-            "uid": {
-              "type": "string",
-              "title": "Uid"
-            }
-          },
-          "type": "object",
-          "required": [
-            "uid"
-          ],
-          "title": "LinkUserCreate"
-        },
-        "LinkUserResponse": {
-          "properties": {
-            "token": {
-              "type": "string",
-              "title": "Token"
-            }
-          },
-          "type": "object",
-          "required": [
-            "token"
-          ],
-          "title": "LinkUserResponse"
-        },
-        "QueryUserResponse": {
-          "properties": {
-            "expanded_q": {
-              "type": "string",
-              "title": "Expanded Q"
-            },
-            "results": {
-              "items": {
-                "type": "object"
-              },
-              "type": "array",
-              "title": "Results"
-            }
-          },
-          "type": "object",
-          "required": [
-            "expanded_q",
-            "results"
-          ],
-          "title": "QueryUserResponse"
-        },
-        "ValidationError": {
-          "properties": {
-            "loc": {
-              "items": {
-                "anyOf": [
-                  {
-                    "type": "string"
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CatalogRead"
                   },
-                  {
-                    "type": "integer"
-                  }
-                ]
-              },
-              "type": "array",
-              "title": "Location"
-            },
-            "msg": {
-              "type": "string",
-              "title": "Message"
-            },
-            "type": {
-              "type": "string",
-              "title": "Error Type"
+                  "title": "Response List Catalogs Catalog Get"
+                }
+              }
             }
           },
-          "type": "object",
-          "required": [
-            "loc",
-            "msg",
-            "type"
-          ],
-          "title": "ValidationError"
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/catalog/{catalog_id}/upload/initiate": {
+      "post": {
+        "tags": [
+          "Catalog"
+        ],
+        "summary": "Initiate Upload",
+        "operationId": "initiate_upload_catalog__catalog_id__upload_initiate_post",
+        "parameters": [
+          {
+            "name": "catalog_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Catalog Id"
+            }
+          },
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
+            },
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MultiPartUpload"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/catalog/{catalog_id}/upload/{upload_id}/part": {
+      "post": {
+        "tags": [
+          "Catalog"
+        ],
+        "summary": "Get Presigned Url Part",
+        "operationId": "get_presigned_url_part_catalog__catalog_id__upload__upload_id__part_post",
+        "parameters": [
+          {
+            "name": "catalog_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Catalog Id"
+            }
+          },
+          {
+            "name": "upload_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Upload Id"
+            }
+          },
+          {
+            "name": "part_number",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Part Number"
+            }
+          },
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
+            },
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PartUploadUrl"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/catalog/{catalog_id}/upload/{upload_id}/complete": {
+      "post": {
+        "tags": [
+          "Catalog"
+        ],
+        "summary": "Complete Upload",
+        "operationId": "complete_upload_catalog__catalog_id__upload__upload_id__complete_post",
+        "parameters": [
+          {
+            "name": "catalog_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Catalog Id"
+            }
+          },
+          {
+            "name": "upload_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Upload Id"
+            }
+          },
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
+            },
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Part"
+                },
+                "title": "Parts"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/catalog/{catalog_id}": {
+      "get": {
+        "tags": [
+          "Catalog"
+        ],
+        "summary": "Get Catalog",
+        "description": "Get a catalog by ID",
+        "operationId": "get_catalog_catalog__catalog_id__get",
+        "parameters": [
+          {
+            "name": "catalog_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Catalog Id"
+            }
+          },
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
+            },
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CatalogRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Catalog"
+        ],
+        "summary": "Delete Catalog",
+        "description": "Delete a catalog",
+        "operationId": "delete_catalog_catalog__catalog_id__delete",
+        "parameters": [
+          {
+            "name": "catalog_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Catalog Id"
+            }
+          },
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
+            },
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/developer/user": {
+      "get": {
+        "tags": [
+          "Developer"
+        ],
+        "summary": "Get Users",
+        "operationId": "get_users_developer_user_get",
+        "parameters": [
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
+            },
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LinkUserFullResponse"
+                  },
+                  "title": "Response Get Users Developer User Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/developer/user/{user_id}": {
+      "get": {
+        "tags": [
+          "Developer"
+        ],
+        "summary": "Get User",
+        "operationId": "get_user_developer_user__user_id__get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          },
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
+            },
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LinkUserFullResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api_key": {
+      "post": {
+        "tags": [
+          "API Key"
+        ],
+        "summary": "Create Api Key",
+        "operationId": "create_api_key_api_key_post",
+        "parameters": [
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
+            },
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApiKeyCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "API Key"
+        ],
+        "summary": "Get Api Keys",
+        "operationId": "get_api_keys_api_key_get",
+        "parameters": [
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
+            },
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api_key/{id}": {
+      "delete": {
+        "tags": [
+          "API Key"
+        ],
+        "summary": "Delete Api Key",
+        "operationId": "delete_api_key_api_key__id__delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
+            },
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/link": {
+      "post": {
+        "tags": [
+          "Link"
+        ],
+        "summary": "Generate Token",
+        "operationId": "generate_token_link_post",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          },
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
+            },
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LinkTokenResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/link/email": {
+      "put": {
+        "tags": [
+          "Link"
+        ],
+        "summary": "Update Link User Email",
+        "operationId": "update_link_user_email_link_email_put",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Email"
+            }
+          },
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
+            },
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/link/connection": {
+      "post": {
+        "tags": [
+          "Link"
+        ],
+        "summary": "Trigger Connection Process",
+        "operationId": "trigger_connection_process_link_connection_post",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          },
+          {
+            "name": "connection_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Connection Id"
+            }
+          },
+          {
+            "name": "task_name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Task Name"
+            }
+          },
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
+            },
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/link/details": {
+      "get": {
+        "tags": [
+          "Link"
+        ],
+        "summary": "Get Link User Details",
+        "operationId": "get_link_user_details_link_details_get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          },
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
+            },
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/link/connection/{connection_id}": {
+      "delete": {
+        "tags": [
+          "Link"
+        ],
+        "summary": "Revoke Consent",
+        "operationId": "revoke_consent_link_connection__connection_id__delete",
+        "parameters": [
+          {
+            "name": "connection_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Connection Id"
+            }
+          },
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
+            },
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/context/{user_id}/catalog/{catalog_id}": {
+      "get": {
+        "tags": [
+          "User Context"
+        ],
+        "summary": "Catalog Search",
+        "operationId": "catalog_search_context__user_id__catalog__catalog_id__get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The id of the user",
+              "title": "User Id"
+            },
+            "description": "The id of the user"
+          },
+          {
+            "name": "catalog_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The id of the catalog",
+              "title": "Catalog Id"
+            },
+            "description": "The id of the catalog"
+          },
+          {
+            "name": "context",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Context to hone the catalog intersection",
+              "title": "Context"
+            },
+            "description": "Context to hone the catalog intersection"
+          },
+          {
+            "name": "top_k",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "The number of catalog items to return",
+              "title": "Top K"
+            },
+            "description": "The number of catalog items to return"
+          },
+          {
+            "name": "from_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Start date to filter events from",
+              "title": "From Date"
+            },
+            "description": "Start date to filter events from"
+          },
+          {
+            "name": "to_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "description": "End date to filter events to",
+              "title": "To Date"
+            },
+            "description": "End date to filter events to"
+          },
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
+            },
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CatalogSearchResult"
+                  },
+                  "title": "Response Catalog Search Context  User Id  Catalog  Catalog Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/context/{user_id}/ask": {
+      "get": {
+        "tags": [
+          "User Context"
+        ],
+        "summary": "Ask User",
+        "operationId": "ask_user_context__user_id__ask_get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The id of the user",
+              "title": "User Id"
+            },
+            "description": "The id of the user"
+          },
+          {
+            "name": "question",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The question you have for the user",
+              "title": "Question"
+            },
+            "description": "The question you have for the user"
+          },
+          {
+            "name": "language_model",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/LanguageModel",
+              "description": "A language model to use for NLG",
+              "default": "gpt-4o-mini"
+            },
+            "description": "A language model to use for NLG"
+          },
+          {
+            "name": "from_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Start date to filter events from",
+              "title": "From Date"
+            },
+            "description": "Start date to filter events from"
+          },
+          {
+            "name": "to_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "description": "End date to filter events to",
+              "title": "To Date"
+            },
+            "description": "End date to filter events to"
+          },
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
+            },
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AskResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/journey/{user_id}": {
+      "get": {
+        "tags": [
+          "Journeys"
+        ],
+        "summary": "Query Journeys",
+        "operationId": "query_journeys_journey__user_id__get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Search string to filter events",
+              "title": "Query"
+            },
+            "description": "Search string to filter events"
+          },
+          {
+            "name": "top_k",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "Number of results to return",
+              "title": "Top K"
+            },
+            "description": "Number of results to return"
+          },
+          {
+            "name": "from_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Start date to filter events from",
+              "title": "From Date"
+            },
+            "description": "Start date to filter events from"
+          },
+          {
+            "name": "to_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "description": "End date to filter events to",
+              "title": "To Date"
+            },
+            "description": "End date to filter events to"
+          },
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
+            },
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/JourneyRead"
+                  },
+                  "title": "Response Query Journeys Journey  User Id  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/journey/{user_id}/overtime": {
+      "get": {
+        "tags": [
+          "Journeys"
+        ],
+        "summary": "Get Journeys Overtime",
+        "operationId": "get_journeys_overtime_journey__user_id__overtime_get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          },
+          {
+            "name": "from_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Start date to filter events from",
+              "title": "From Date"
+            },
+            "description": "Start date to filter events from"
+          },
+          {
+            "name": "to_date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "format": "date-time",
+              "description": "End date to filter events to",
+              "title": "To Date"
+            },
+            "description": "End date to filter events to"
+          },
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
+            },
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/JourneyOvertime"
+                  },
+                  "title": "Response Get Journeys Overtime Journey  User Id  Overtime Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/form": {
+      "get": {
+        "tags": [
+          "Form"
+        ],
+        "summary": "Get Forms",
+        "operationId": "get_forms_form_get",
+        "parameters": [
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
+            },
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FormRead"
+                  },
+                  "title": "Response Get Forms Form Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Form"
+        ],
+        "summary": "Post Form",
+        "operationId": "post_form_form_post",
+        "parameters": [
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
+            },
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FormBase"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FormRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Form"
+        ],
+        "summary": "Update Form",
+        "operationId": "update_form_form_put",
+        "parameters": [
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
+            },
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FormUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/form/{form_id}": {
+      "delete": {
+        "tags": [
+          "Form"
+        ],
+        "summary": "Delete Form",
+        "operationId": "delete_form_form__form_id__delete",
+        "parameters": [
+          {
+            "name": "form_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Form Id"
+            }
+          },
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
+            },
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/consent_config": {
+      "get": {
+        "tags": [
+          "Consent Config"
+        ],
+        "summary": "Get Consent Configs",
+        "operationId": "get_consent_configs_consent_config_get",
+        "parameters": [
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
+            },
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ConsentConfigRead"
+                  },
+                  "title": "Response Get Consent Configs Consent Config Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Consent Config"
+        ],
+        "summary": "Post Consent Config",
+        "operationId": "post_consent_config_consent_config_post",
+        "parameters": [
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
+            },
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsentConfigCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConsentConfigRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/consent_config/{id}": {
+      "get": {
+        "tags": [
+          "Consent Config"
+        ],
+        "summary": "Get Consent Config",
+        "operationId": "get_consent_config_consent_config__id__get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
+            },
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConsentConfigRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Consent Config"
+        ],
+        "summary": "Update Consent Config",
+        "operationId": "update_consent_config_consent_config__id__put",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
+            },
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConsentConfigCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConsentConfigRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Consent Config"
+        ],
+        "summary": "Delete Consent Config",
+        "operationId": "delete_consent_config_consent_config__id__delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Id"
+            }
+          },
+          {
+            "name": "api-key",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "The api key generated from the Fabric developer portal",
+              "title": "Api-Key"
+            },
+            "description": "The api key generated from the Fabric developer portal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/consent_config/{slug}": {
+      "get": {
+        "tags": [
+          "Public",
+          "Consent Config"
+        ],
+        "summary": "Get Consent Config",
+        "operationId": "get_consent_config_public_consent_config__slug__get",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Slug"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConsentConfigRead"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/link/verify": {
+      "post": {
+        "tags": [
+          "Public",
+          "Link"
+        ],
+        "summary": "Verify Token",
+        "operationId": "verify_token_public_link_verify_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LinkTokenPost"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/link/download": {
+      "post": {
+        "tags": [
+          "Public",
+          "Link"
+        ],
+        "summary": "Download Data From Provider",
+        "operationId": "download_data_from_provider_public_link_download_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DownloadRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/link/callback_url/{state}": {
+      "get": {
+        "tags": [
+          "Public",
+          "Link"
+        ],
+        "summary": "Get Callback Url",
+        "operationId": "get_callback_url_public_link_callback_url__state__get",
+        "parameters": [
+          {
+            "name": "state",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "State"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
         }
       }
     }
+  },
+  "components": {
+    "schemas": {
+      "ApiKeyCreate": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "expires": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Expires"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "expires"
+        ],
+        "title": "ApiKeyCreate"
+      },
+      "AskResponse": {
+        "properties": {
+          "answer": {
+            "type": "string",
+            "title": "Answer"
+          },
+          "context": {
+            "items": {
+              "$ref": "#/components/schemas/JourneyReadWithScore"
+            },
+            "type": "array",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "answer",
+          "context"
+        ],
+        "title": "AskResponse"
+      },
+      "Body_create_catalog_catalog_post": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "schema": {
+            "$ref": "#/components/schemas/CatalogSchema"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "schema"
+        ],
+        "title": "Body_create_catalog_catalog_post"
+      },
+      "CatalogFeatureColumn": {
+        "properties": {
+          "type": {
+            "anyOf": [
+              {
+                "type": "string",
+                "const": "string"
+              },
+              {
+                "type": "string",
+                "const": "image_source"
+              },
+              {
+                "type": "string",
+                "const": "image_url"
+              }
+            ],
+            "title": "Type"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "name"
+        ],
+        "title": "CatalogFeatureColumn"
+      },
+      "CatalogIdColumn": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "type": {
+            "type": "string",
+            "const": "string",
+            "title": "Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "type"
+        ],
+        "title": "CatalogIdColumn"
+      },
+      "CatalogItemRead": {
+        "properties": {
+          "item_id": {
+            "type": "string",
+            "title": "Item Id"
+          },
+          "item_data": {
+            "title": "Item Data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "item_id",
+          "item_data"
+        ],
+        "title": "CatalogItemRead"
+      },
+      "CatalogRead": {
+        "properties": {
+          "schema": {
+            "$ref": "#/components/schemas/CatalogSchema"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "team_id": {
+            "type": "string",
+            "title": "Team Id"
+          },
+          "status": {
+            "$ref": "#/components/schemas/CatalogStatus"
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message"
+          },
+          "file_metadata": {
+            "type": "object",
+            "title": "File Metadata"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "id",
+          "team_id",
+          "status",
+          "file_metadata",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "CatalogRead"
+      },
+      "CatalogSchema": {
+        "properties": {
+          "id_column": {
+            "$ref": "#/components/schemas/CatalogIdColumn"
+          },
+          "feature_columns": {
+            "items": {
+              "$ref": "#/components/schemas/CatalogFeatureColumn"
+            },
+            "type": "array",
+            "title": "Feature Columns"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id_column",
+          "feature_columns"
+        ],
+        "title": "CatalogSchema"
+      },
+      "CatalogSearchResult": {
+        "properties": {
+          "item": {
+            "$ref": "#/components/schemas/CatalogItemRead"
+          },
+          "evidence": {
+            "$ref": "#/components/schemas/JourneyRead"
+          },
+          "score": {
+            "type": "number",
+            "title": "Score"
+          }
+        },
+        "type": "object",
+        "required": [
+          "item",
+          "evidence",
+          "score"
+        ],
+        "title": "CatalogSearchResult"
+      },
+      "CatalogStatus": {
+        "type": "string",
+        "enum": [
+          "CREATED",
+          "UPLOADING",
+          "UPLOADED",
+          "PROCESSING",
+          "COMPLETE",
+          "FAILED",
+          "PARTIALLY_FAILED"
+        ],
+        "title": "CatalogStatus"
+      },
+      "ConsentConfigBase": {
+        "properties": {
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "logo_url": {
+            "type": "string",
+            "title": "Logo Url"
+          },
+          "callback_url": {
+            "type": "string",
+            "title": "Callback Url"
+          },
+          "layout_config": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Layout Config"
+          }
+        },
+        "type": "object",
+        "required": [
+          "slug",
+          "name",
+          "logo_url",
+          "callback_url"
+        ],
+        "title": "ConsentConfigBase"
+      },
+      "ConsentConfigCreate": {
+        "properties": {
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "logo_url": {
+            "type": "string",
+            "title": "Logo Url"
+          },
+          "callback_url": {
+            "type": "string",
+            "title": "Callback Url"
+          },
+          "layout_config": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Layout Config"
+          }
+        },
+        "type": "object",
+        "required": [
+          "slug",
+          "name",
+          "logo_url",
+          "callback_url"
+        ],
+        "title": "ConsentConfigCreate"
+      },
+      "ConsentConfigRead": {
+        "properties": {
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "logo_url": {
+            "type": "string",
+            "title": "Logo Url"
+          },
+          "callback_url": {
+            "type": "string",
+            "title": "Callback Url"
+          },
+          "layout_config": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Layout Config"
+          },
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "slug",
+          "name",
+          "logo_url",
+          "callback_url",
+          "id",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "ConsentConfigRead"
+      },
+      "DownloadRequest": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "state": {
+            "type": "string",
+            "title": "State"
+          },
+          "provider": {
+            "type": "string",
+            "title": "Provider"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "state",
+          "provider"
+        ],
+        "title": "DownloadRequest"
+      },
+      "FormBase": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "schema": {
+            "items": {
+              "$ref": "#/components/schemas/FormFieldSchema"
+            },
+            "type": "array",
+            "title": "Schema"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "FormBase"
+      },
+      "FormFieldSchema": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "question": {
+            "type": "string",
+            "title": "Question"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "question"
+        ],
+        "title": "FormFieldSchema"
+      },
+      "FormRead": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "schema": {
+            "items": {
+              "$ref": "#/components/schemas/FormFieldSchema"
+            },
+            "type": "array",
+            "title": "Schema"
+          },
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "id",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "FormRead"
+      },
+      "FormUpdate": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "schema": {
+            "items": {
+              "$ref": "#/components/schemas/FormFieldSchema"
+            },
+            "type": "array",
+            "title": "Schema"
+          },
+          "id": {
+            "type": "string",
+            "title": "Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "id"
+        ],
+        "title": "FormUpdate"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "JourneyOvertime": {
+        "properties": {
+          "month": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Month"
+          },
+          "journey_count": {
+            "type": "integer",
+            "title": "Journey Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "month",
+          "journey_count"
+        ],
+        "title": "JourneyOvertime"
+      },
+      "JourneyRead": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "keywords": {
+            "type": "string",
+            "title": "Keywords"
+          },
+          "cohesion": {
+            "type": "number",
+            "title": "Cohesion"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          },
+          "start_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start Time"
+          },
+          "end_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End Time"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "text",
+          "keywords",
+          "cohesion",
+          "count",
+          "start_time",
+          "end_time"
+        ],
+        "title": "JourneyRead"
+      },
+      "JourneyReadWithScore": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "keywords": {
+            "type": "string",
+            "title": "Keywords"
+          },
+          "cohesion": {
+            "type": "number",
+            "title": "Cohesion"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          },
+          "start_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start Time"
+          },
+          "end_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End Time"
+          },
+          "score": {
+            "type": "number",
+            "title": "Score"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "text",
+          "keywords",
+          "cohesion",
+          "count",
+          "start_time",
+          "end_time",
+          "score"
+        ],
+        "title": "JourneyReadWithScore"
+      },
+      "LanguageModel": {
+        "type": "string",
+        "enum": [
+          "o1-preview",
+          "o1-mini",
+          "gpt-4o",
+          "gpt-4o-mini"
+        ],
+        "title": "LanguageModel"
+      },
+      "LinkStatus": {
+        "type": "string",
+        "enum": [
+          "created",
+          "verified",
+          "initiating_download",
+          "downloading",
+          "download_completed",
+          "download_partially_completed",
+          "download_failed",
+          "processing",
+          "processing_failed",
+          "processing_completed",
+          "revoked"
+        ],
+        "title": "LinkStatus"
+      },
+      "LinkTaskFullResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "status": {
+            "$ref": "#/components/schemas/LinkTaskStatus"
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message"
+          },
+          "task_name": {
+            "type": "string",
+            "title": "Task Name"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "task_name",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "LinkTaskFullResponse"
+      },
+      "LinkTaskStatus": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "running",
+          "completed",
+          "failed"
+        ],
+        "title": "LinkTaskStatus"
+      },
+      "LinkTokenFullResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "token": {
+            "type": "string",
+            "title": "Token"
+          },
+          "connection_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Connection Id"
+          },
+          "status": {
+            "$ref": "#/components/schemas/LinkStatus"
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updated At"
+          },
+          "link_tasks": {
+            "items": {
+              "$ref": "#/components/schemas/LinkTaskFullResponse"
+            },
+            "type": "array",
+            "title": "Link Tasks"
+          },
+          "consent_config": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ConsentConfigBase"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "token",
+          "connection_id",
+          "status",
+          "created_at",
+          "updated_at",
+          "link_tasks"
+        ],
+        "title": "LinkTokenFullResponse"
+      },
+      "LinkTokenPost": {
+        "properties": {
+          "state": {
+            "type": "string",
+            "title": "State"
+          },
+          "token": {
+            "type": "string",
+            "title": "Token"
+          },
+          "consent_config_id": {
+            "type": "string",
+            "title": "Consent Config Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "state",
+          "token",
+          "consent_config_id"
+        ],
+        "title": "LinkTokenPost"
+      },
+      "LinkTokenResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "token": {
+            "type": "string",
+            "title": "Token"
+          },
+          "expires": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Expires"
+          },
+          "connection_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Connection Id"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/LinkStatus"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "message": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "token",
+          "expires"
+        ],
+        "title": "LinkTokenResponse"
+      },
+      "LinkUserFullResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "external_id": {
+            "type": "string",
+            "title": "External Id"
+          },
+          "email": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          },
+          "link_tokens": {
+            "items": {
+              "$ref": "#/components/schemas/LinkTokenFullResponse"
+            },
+            "type": "array",
+            "title": "Link Tokens"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "external_id",
+          "created_at",
+          "link_tokens"
+        ],
+        "title": "LinkUserFullResponse"
+      },
+      "MultiPartUpload": {
+        "properties": {
+          "upload_id": {
+            "type": "string",
+            "title": "Upload Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "upload_id"
+        ],
+        "title": "MultiPartUpload"
+      },
+      "Part": {
+        "properties": {
+          "ETag": {
+            "type": "string",
+            "title": "Etag"
+          },
+          "PartNumber": {
+            "type": "integer",
+            "title": "Partnumber"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ETag",
+          "PartNumber"
+        ],
+        "title": "Part"
+      },
+      "PartUploadUrl": {
+        "properties": {
+          "presigned_url": {
+            "type": "string",
+            "title": "Presigned Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "presigned_url"
+        ],
+        "title": "PartUploadUrl"
+      },
+      "TeamCreatedWebhook": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "team.created",
+            "title": "Type"
+          },
+          "data": {
+            "$ref": "#/components/schemas/TeamData"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "data"
+        ],
+        "title": "TeamCreatedWebhook"
+      },
+      "TeamData": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "display_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Display Name"
+          },
+          "created_at_millis": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At Millis"
+          },
+          "profile_image_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Profile Image Url"
+          },
+          "server_metadata": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Server Metadata"
+          },
+          "client_metadata": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Metadata"
+          },
+          "client_read_only_metadata": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Read Only Metadata"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "title": "TeamData"
+      },
+      "TeamDeletedWebhook": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "team.deleted",
+            "title": "Type"
+          },
+          "data": {
+            "$ref": "#/components/schemas/TeamData"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "data"
+        ],
+        "title": "TeamDeletedWebhook"
+      },
+      "TeamInfo": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "display_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Display Name"
+          },
+          "created_at_millis": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At Millis"
+          },
+          "profile_image_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Profile Image Url"
+          },
+          "server_metadata": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Server Metadata"
+          },
+          "client_metadata": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Metadata"
+          },
+          "client_read_only_metadata": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Read Only Metadata"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "title": "TeamInfo"
+      },
+      "TeamMembershipCreatedWebhook": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "team_membership.created",
+            "title": "Type"
+          },
+          "data": {
+            "$ref": "#/components/schemas/TeamMembershipData"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "data"
+        ],
+        "title": "TeamMembershipCreatedWebhook"
+      },
+      "TeamMembershipData": {
+        "properties": {
+          "team_id": {
+            "type": "string",
+            "title": "Team Id"
+          },
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "team_id",
+          "user_id"
+        ],
+        "title": "TeamMembershipData"
+      },
+      "TeamMembershipDeletedWebhook": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "team_membership.deleted",
+            "title": "Type"
+          },
+          "data": {
+            "$ref": "#/components/schemas/TeamMembershipData"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "data"
+        ],
+        "title": "TeamMembershipDeletedWebhook"
+      },
+      "UserCreatedData": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "primary_email_verified": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Primary Email Verified"
+          },
+          "primary_email_auth_enabled": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Primary Email Auth Enabled"
+          },
+          "signed_up_at_millis": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Signed Up At Millis"
+          },
+          "last_active_at_millis": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Active At Millis"
+          },
+          "primary_email": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Primary Email"
+          },
+          "display_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Display Name"
+          },
+          "selected_team": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TeamInfo"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "selected_team_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Selected Team Id"
+          },
+          "profile_image_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Profile Image Url"
+          },
+          "client_metadata": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Metadata"
+          },
+          "client_read_only_metadata": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Client Read Only Metadata"
+          },
+          "server_metadata": {
+            "anyOf": [
+              {
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Server Metadata"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "title": "UserCreatedData"
+      },
+      "UserCreatedWebhook": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "user.created",
+            "title": "Type"
+          },
+          "data": {
+            "$ref": "#/components/schemas/UserCreatedData"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "data"
+        ],
+        "title": "UserCreatedWebhook"
+      },
+      "UserDeletedData": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "teams": {
+            "anyOf": [
+              {
+                "items": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Teams"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "title": "UserDeletedData"
+      },
+      "UserDeletedWebhook": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "user.deleted",
+            "title": "Type"
+          },
+          "data": {
+            "$ref": "#/components/schemas/UserDeletedData"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "data"
+        ],
+        "title": "UserDeletedWebhook"
+      },
+      "UserUpdatedWebhook": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "const": "user.updated",
+            "title": "Type"
+          },
+          "data": {
+            "$ref": "#/components/schemas/UserCreatedData"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "data"
+        ],
+        "title": "UserUpdatedWebhook"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
   }
+}
