@@ -37,13 +37,15 @@
       "group": "Overview",
       "pages": [
         "docs/welcome",
+        "docs/core-concepts",
         "docs/quickstart",
-        "docs/core-concepts"
       ]
     },
     {
       "group": "Tutorials",
       "pages": [
+       "docs/link",
+        "docs/journeys",
         "docs/catalog-intersection"
       ]
     }
