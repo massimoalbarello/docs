@@ -3,9 +3,50 @@ title: "Fabric Core Concepts"
 description: "Fabric is creating the Personalization Layer of the Internet. It's worth introducing some new concepts."
 ---
 
+## Data Portability
+
+Data portability refers to the right of end users to obtain and reuse their personal data across different services or platforms in a usable and transferable format.
+
+Data Portability presents in different regulations (e.g. GDPR, PSD2, DMA in Europe) and its purpose is to enable competition and user control in the market for user data.
+
+In 2024, the EU's Digital Markets Act enforced data portability for search and social data through 8 big tech platforms, enabling third parties to request access to the end user's data with the end user's consent.
+
+Where available, Fabric utilizes big tech APIs made available under the Digital Markets Act.
+
+## Fabric Link
+
+Fabric Link is Fabric's client-side component that end users interact with in order to grant Fabric access to their data which then allow B2C services to use that data through Fabric's APIs.
+
+Link can easily be embedded in apps and websites and should primarily be used in this way. For test users, Fabric also supports generating and sending a URL to users to trigger link within the user's browser.
+
+Link is the gateway to securely obtaining the end user's consent for multiple data sources and accessing the processed and enriched user data through Fabric's APIs.
+
 ## Digital Self
 
-Digital Self is the most accurate digital representation of an individual user.
+Digital Self is the most accurate digital representation of an individual user created from multiple data providers.
 
-Imagine being able to understand every single one of your users. The Digital Self empowers you to do so, with consent from your users. Fabric is creating a personalized Internet where brands can access relevant aspects of each user's digital representation. Fabric makes this entremely simple for users and brands so that users can enjoy hyper-personalized experiences in just a few clicks and brands can increase retention and revenue.
-Ready to [create your own Digital Self](https://www.onfabric.io/user/dashboard)?
+Imagine being able to understand every single one of your users.
+
+The Digital Self empowers you to do so, with consent from your users. Fabric is creating a personalized Internet where B2C services can access relevant aspects of each user's digital representation.
+
+Fabric makes this entremely simple for users and B2C services so that users can enjoy secure hyper-personalized experiences in just a few clicks and B2C services can increase retention and revenue.
+Ready to [start creating your own Digital Self](https://www.onfabric.io/user/dashboard)?
+
+## Heirarchy of Information
+
+### Interactions
+
+Individual user interactions such as:
+Google and YouTube: Search, Website Visit, Video Watched
+Amazon: Search, Click, Shopped
+TikTok: Search, Video Watched
+
+This is not an exhaustive list of providers or interactions. Currently not available through the API.
+
+### Journeys
+
+A collection of interactions that are semantically similar and occurred within a rolling time horizon (default 30 minutes).
+
+### Clusters
+
+A collection of journeys that are semantically similar. Currently not available through the API.
