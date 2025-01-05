@@ -1,5 +1,35 @@
+---
+title: "Fabric Link"
+description: "Client-side component to gain secure end user data access"
+---
+
+<Warning>
+  Link is currently available for the supported integrations. As we add more integrations to enhance the end user's Digital Self, Link will include support for these integrations. 
+</Warning>
+
+## Overview
 Fabric Link is Fabric’s client-side component that end users interact with in order to grant Fabric secure access to their data. Once this access is established, third-party or B2C services can utilize that data via Fabric’s APIs to deliver richer user experiences and services.
 
 Fabric Link can be embedded directly within web or mobile applications. For testing purposes or user flows without a dedicated frontend, Fabric also supports generating and sending a special URL to end users, allowing them to complete Link in their own browsers.
 
-Fabric Link is the only method of obtaining end-user consent for connecting multiple data sources and for accessing the processed and enriched data through Fabric’s APIs in Production. In testing environments, bypassing Link may be possible depending on your use case and configuration.
+Fabric Link is the only method of obtaining end-user consent for connecting multiple data sources and for accessing the processed and enriched data through Fabric’s APIs in Production. 
+
+## Introduction to Fabric Link
+When an end user needs to grant access to their data sources—such as Google, TikTok, and LinkedIn—Fabric Link is the user-facing flow that packages:
+
+Authentication: Collecting appropriate user credentials and passing them securely to Fabric.
+Error handling: Providing clear, user-friendly error messages and prompts when issues arise with login or data retrieval.
+Consent management: Displaying end-user disclosure and consent forms based on regional regulations and your own branding preferences.
+
+Currently, Fabric Link is available as a webview that can be triggered within apps and on the web. Fabric also provides a special URL, which can be used to launch Fabric Link in a standalone browser session, such as through a email or SMS URL.
+
+Over time, Fabric Link will be available through SDKs for modern web browsers and native mobile platforms (iOS, Android, React Native). 
+
+## Customizing the User Experience
+Fabric Link offers multiple customization options, including:
+
+Styling: Modify background colors, text labels, and branding elements.
+Provider selection: Configure which data providers you want to access data from.
+Consent and disclosures: Insert your company’s name, terms of service, or privacy policy references to ensure compliance with relevant regulations.
+
+You can manage these customizations through the Fabric Developer Portal, preview changes in real time, and then publish them to production once you’re ready.
