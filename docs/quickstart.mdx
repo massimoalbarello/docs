@@ -23,48 +23,28 @@ in the Playground and query their data using the Journeys API by specifying para
 
 You have a default consent already available to you in the Consents Tab. 
 
-You can create an additional Fabric Link consent with a different data provider (e.g. LinkedIn) by navigating to the consents tab and clicking on Create Consent. 
+You can create a new Fabric Link Consent by navigating to the Consents tab and clicking on the Create Consent Button. Enter a name for the Consent App and you can then configure the consent parameters as specified below.
 
-Create a consent flow for your use case by clicking on `Consents` -> `Create Consent`:
-![Create consent flow](/images/quickstart/consent_flow.png "Create consent flow")
+When creating new Linked users, you can attach Fabric Link Consents to them to get request access to their data.
 
-Make sure to specify the name of the consent flow (`test` in this case) and the callback URL you want your users to be redirected to once they have completed the consent flow (`https://developer.onfabric.io` for this test).
-
-This consent flow can be completely personalized to your use case. 
-
-You can use your logo, update the copy, and specify your own callback URL to redirect the user after they have consented.
-![Personalize Consent](/images/quickstart/consent_personalization.png "Personalize Consent")
+This consent flow can be completely personalized to your use case. For more details on how to configure consent flow, refer to the section on Fabric Link[ADD LINK].
 
 ## Onboard your first user
 
 You are now ready to onboard your first user. 
 
-First, go back to the [main dashboard](https://developer.onfabric.io), click on `Create Link User` and provide a unique identifier (`test-user` in this case). Once you are done, you will see that a new user has been created:
-![Link User](/images/quickstart/link_user.png "Link User")
+First, go back to the [Playground](https://developer.onfabric.io), click on `Create User` and provide a unique identifier. Once you are done, you will see that a new user has been created.
 
-Click on `>` to go to the user's dashboard:
-![User Dashboard](/images/quickstart/user_dashboard.png "User Dashboard")
+Select the data source you want to request in the first instance. Copy the consent URL to your clipboard and share it with your first user so they can complete the consent experience. When the user completes the consent experience, the Playground to query the user's data will load.
 
-Then, click again on `>` under `Consent` to select which consent flow to show to `test-user`.
-![User Consent](/images/quickstart/user_consent.png "User Consent")
+To add additional data sources, click on the user and navigate to the selected user's settings in the Playground.
 
-This is the consent flow you just created that can be used to access Google activity 
-![User Flow](/images/quickstart/user_flow.png "User Flow")
+You can then click on Create Link Token, click on the 3 dots under Consent URL to copy the URL to request additional data sources. 
 
-It takes just a few clicks to grant Fabric access to Google activity. Fabric currently supports Google "Search" and "Shopping" scopes and will make "Youtube" and "Maps" available in the near future. More scopes = more personalized online experiences.
-![Share Google Activity](/images/quickstart/share_google_activity.png "Share Google Activity")
+That's it! Fabric is now creating the [Digital Self](/docs/core-concepts#digital-self) of your test user.
 
-That's it! Fabric is now creating the [Digital Self](/docs/core-concepts#digital-self) of your `test-user`.
-
-You can now go back to the dashboard and see a summary of the `test-user` Google activity:
+You can now go back to the Playground and query the user's activity.
 
 ![User Activity](/images/quickstart/user_activity.png "User Activity")
-
-## Ask the user
-
-You can now ask specific question to the [Digital Self](/docs/core-concepts#digital-self) of the `test-user`. For example:
-![Ask User](/images/quickstart/ask_user.png "Ask User")
-
-For more insightful answers and even more personalized experiences, the user can also grant Fabric access to their activity on Instagram, Facebook, TikTok, Pinterest, and much more.
 
 Imagine being able to understand what each of your users want. With Fabric, the most accurate user understanding is one click away!
