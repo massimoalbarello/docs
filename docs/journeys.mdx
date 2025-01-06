@@ -10,11 +10,19 @@ Journeys API is currently in beta. Expect changes, an experience that improves (
 ## Overview
 Journeys helps you retrieve your end user's search and social journeys (collections of user interactions - read more here[ADD LINK] from Fabric's supported integrations[ADD LINK] on an ongoing basis. 
 
-Currently, you can call the Journeys Endpoint to refresh user journeys being used in your application. Over time, you will be able to keep Journeys up-to-date with webhooks. 
+Currently, you can call the Journeys Endpoint to refresh user journeys being used in your application. Over time, we will add support for you to keep Journeys up-to-date with webhooks. 
 
-Journeys data includes a textual description of user interactions, the topics associated with the journey, and the timestamp of the journey. Journeys can be filtered by textual context (e.g. "fashion") or time horizon. You can also specify the number of journeys that you would like to fetch by passing in the TopK parameter. For more details, see the Transactions API reference[ADD LINK].
+Journeys data includes a textual description of user interactions, the topics associated with the journey, and the timestamp of the journey. Journeys can be filtered by textual context (e.g. "fashion") or time horizon. You can also specify the number of journeys that you would like to fetch by passing in the top_K parameter. Journeys is accessible in the playground. 
+
+For more details, see the Journeys API reference[ADD LINK].
 
 ## Integration 
+1. Use Fabric Link to create a linked user: On the client-side, you need to use Fabric Link to seek user consent to access their data. You can do this by creating a special URL for each user in the playground or integrate Fabric Link in your application. Refer to the Fabric Link section[ADD LINK] of these docs for more information on using Fabric Link.   
 
+2. Create a method to call the Journeys Endpoint: create a method to call the Journeys Endpoint, specifying parameters such as the user id, number of records to return (topK), context query, and date range.   
+
+3. Create a method to periodically update Journeys: Over time, we will add support for you to keep Journeys up-to-date with webhooks. For now, you will have to create a method that periodically fetches journeys beginning at the end of the last date range you used to previously fetch journeys.
+
+For more details, refer to Journeys API reference.  
 
 
